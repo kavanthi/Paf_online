@@ -1,0 +1,49 @@
+package com.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.model.Addproduct;
+import com.util.dbConnect;
+
+public class addproductdb {
+	Connection conn = null;
+
+	public void addproductdb(Addproduct Addproduct) {
+		
+		//Connect database
+				conn = (Connection) dbConnect.conn();
+				
+				try {
+					String query1 = "insert into product(no,title,copyno,price,description,username) values(?,?,?,?,?)";
+				    PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query1);
+				    
+				    ps.setString(1, Addproduct.getProductId());
+					ps.setString(2, Addproduct.getProductTitle());
+					ps.setInt(3, Addproduct.getTotalcopy());
+					ps.setInt(4, Addproduct.getPrice());
+					ps.setString(5, Addproduct.getDescription());
+					ps.setString(5, Addproduct.getUsernam());
+					
+				
+					
+					ps.executeUpdate();
+					ResultSet rs = ps.executeQuery();
+					
+					
+					System.out.println("Successfuly added book");
+					conn.close();
+					System.out.println("Disconnected from database");
+				}catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+					
+					
+	
+				    
+	}
+}

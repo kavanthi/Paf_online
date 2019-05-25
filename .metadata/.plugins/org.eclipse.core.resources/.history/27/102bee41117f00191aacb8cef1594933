@@ -1,0 +1,57 @@
+package com.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.model.Addproduct;
+import com.util.dbConnect;
+
+public class addproductdb {
+	Connection conn = null;
+
+	public void addproductdb(Addproduct Addproduct) {
+		
+		//Connect database
+				conn = (Connection) dbConnect.conn();
+				
+				try {
+					String query1 = "insert into book(no,title,copyno,price,description) values(?,?,?,?,?)";
+				    PreparedStatement ps = (PreparedStatement) conn.prepareStatement(query1);
+				    
+				    ps.setString(1, Addproduct.getProductId());
+					ps.setString(2, Addproduct.getProductTitle());
+					ps.setInt(3, Addproduct.getTotalcopy());
+					ps.setInt(4, Addproduct.getPrice());
+					ps.setString(5, Addproduct.getDescription());
+					
+				
+					
+					ps.executeUpdate();
+					ResultSet rs = ps.executeQuery();
+					
+					String query2 = "insert into availabilitybook(bookno,availablecopies,status) values(?,?,'Available')";
+				    PreparedStatement ps2 = (PreparedStatement) conn.prepareStatement(query2);
+				    
+				    ps2.setString(1, addbook.getBookId());
+				    ps2.setInt(2, addbook.getCopy_No());
+					
+				
+					ps2.executeUpdate();
+					ResultSet rs2 = ps2.executeQuery();
+					
+					System.out.println("Successfuly added book");
+					conn.close();
+					System.out.println("Disconnected from database");
+				}catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+					
+					
+	
+				    
+	}
+}

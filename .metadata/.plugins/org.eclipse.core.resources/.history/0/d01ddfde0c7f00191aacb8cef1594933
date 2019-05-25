@@ -1,0 +1,14 @@
+package com.model;
+
+public class Addbook {
+	private String productId;
+	private String productTitle;
+	private String productauthor;
+	private int price;
+	private int addcopy;
+	private int totalcopy;
+	private String description;	
+	private String usernam;
+	private String search;
+	
+	}

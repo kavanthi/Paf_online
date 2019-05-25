@@ -1,0 +1,51 @@
+package com.service;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import com.model.Addbook;
+import com.util.dbConnect;
+
+public class updateproductdb {
+	Connection conn = null;
+	
+	public void updatebookdb(Addproduct Addproduct) throws SQLException {
+		
+		conn = (Connection)dbConnect.conn();
+		
+		String no = Addproduct.getBookId();
+		
+		
+			String query3 = "update product set no =? where no ="+no+"";
+			PreparedStatement ps = null;
+			try {
+				ps = (PreparedStatement) conn.prepareStatement(query3);
+			
+			
+			int no = Addproduct.getCopy_No();
+			int addno = Addproduct.getAddcopy();
+			
+			int totleCopy = no + addno;
+			
+			System.out.println(no);
+			
+			System.out.println(addno);
+			
+			ps.setInt(1,totleCopy);
+		
+			ps.executeUpdate();
+			ResultSet rs = ps.executeQuery();
+			
+			conn.close();
+			System.out.println("Disconnected from database");
+			System.out.println(totleCopy);
+			}
+	
+			catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
+}
